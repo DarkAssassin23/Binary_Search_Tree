@@ -71,6 +71,7 @@ int main(void)
         if (tree.deleteItem(array[i]))
             std::cout << ". Deleted... ";
         printf("\n");
+        assert(!tree.search(array[i]));
     }
     assert(tree2 != tree);
     assert(tree2 == tree3);
