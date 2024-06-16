@@ -52,6 +52,9 @@ class bst
     /// @return If the value was removed
     bool deleteItem(T &value);
 
+    /// @brief Reorder the bst to ensure it is balanced
+    void balance(void);
+
     /// @brief Print a single element from the bst
     /// @param value The value to print
     /// @return If the value was present and printed
@@ -66,6 +69,10 @@ class bst
     /// @brief Get the bst as a string
     /// @return The bst as a string
     std::string toString(void) const;
+
+    /// @brief Get the root of the bst
+    /// @return The root of the bst
+    TreeNode<T> *getRoot(void) const;
 
   private:
     /// @brief Copy the source bst to the destination bst
@@ -107,6 +114,19 @@ class bst
     /// @param root The current root of the tree
     /// @param value The value to be deleted
     bool Delete(TreeNode<T> *&root, T &value);
+
+    /// @brief Get the nodes in order based on their value from the given root
+    /// @param root The root to start ordering from
+    /// @param nodes List of the elements in order
+    void orderTree(TreeNode<T> *root, std::vector<TreeNode<T> *> &nodes);
+
+    /// @brief Build a balanced bst
+    /// @param nodes Sorted list of nodes in the bst
+    /// @param start Index in the vector for where to begin
+    /// @param end Index in the vector for where to end
+    /// @return The new root of the bst
+    TreeNode<T> *buildTree(std::vector<TreeNode<T> *> &nodes, size_t start,
+                           size_t end);
 
     /// @brief Get the minimum value in the bst
     /// @return The minimum value in the bst

@@ -3,7 +3,9 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <vector>
 
+#include "node.h"
 #include "tree.h"
 
 template <class T>
@@ -89,6 +91,14 @@ bool bst<T>::deleteItem(T &value)
 }
 
 template <class T>
+void bst<T>::balance(void)
+{
+    std::vector<TreeNode<T> *> nodes;
+    orderTree(root, nodes);
+    root = buildTree(nodes, 0, nodes.size() - 1);
+}
+
+template <class T>
 bool bst<T>::printOne(T &value) const
 {
     return printOneNode(root, value);
@@ -104,6 +114,12 @@ template <class T>
 std::string bst<T>::toString(void) const
 {
     return getString(root);
+}
+
+template <class T>
+TreeNode<T> *bst<T>::getRoot(void) const
+{
+    return root;
 }
 
 /*========================================*/
@@ -253,6 +269,32 @@ bool bst<T>::Delete(TreeNode<T> *&root, T &value)
         }
     }
     return false;
+}
+
+template <class T>
+void bst<T>::orderTree(TreeNode<T> *root, std::vector<TreeNode<T> *> &nodes)
+{
+    if (root == nullptr)
+        return;
+
+    orderTree(root->left, nodes);
+    nodes.push_back(root);
+    orderTree(root->right, nodes);
+}
+
+template <class T>
+TreeNode<T> *bst<T>::buildTree(std::vector<TreeNode<T> *> &nodes, size_t start,
+                               size_t end)
+{
+    // 'end' will wrap around to the max value if it goes below 0
+    if (end > nodes.size() - 1 || start > end)
+        return nullptr;
+
+    size_t midPoint = (start + end) / 2;
+    TreeNode<T> *root = nodes[midPoint];
+    root->left = buildTree(nodes, start, midPoint - 1);
+    root->right = buildTree(nodes, midPoint + 1, end);
+    return root;
 }
 
 template <class T>

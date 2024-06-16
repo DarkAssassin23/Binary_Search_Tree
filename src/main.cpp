@@ -1,13 +1,31 @@
+#include <algorithm>
 #include <cassert>
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+#include <vector>
 
 #include "tree.h"
 
+void balanceTest(void)
+{
+    bst<int> t;
+    std::vector<int> checker;
+    for (int i = 0; i < 16; i++)
+    {
+        checker.push_back(i);
+        t.insert(i);
+    }
+    std::sort(checker.begin(), checker.end());
+
+    int expectedMid = (checker.size() / 2) - (checker.size() % 2 == 0);
+    assert(t.getRoot()->data != checker[expectedMid]);
+    t.balance();
+    assert(t.getRoot()->data == checker[expectedMid]);
+}
+
 int main(void)
 {
-
     bst<int> tree;
     int number = 0;
     srand(time(NULL));
@@ -59,6 +77,7 @@ int main(void)
     assert(tree3 != tree);
 
     std::cout << "\nFinal Tree: " << tree << "\n";
+    balanceTest();
 
     return 0;
 }
