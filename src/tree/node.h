@@ -1,6 +1,8 @@
 #ifndef NODE_H
 #define NODE_H
 
+/// @class TreeNode
+/// @brief Class that makes up a single node in a bst
 template <class T>
 class TreeNode
 {
