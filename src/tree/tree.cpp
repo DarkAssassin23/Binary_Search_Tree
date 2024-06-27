@@ -290,7 +290,7 @@ TreeNode<T> *bst<T>::buildTree(std::vector<TreeNode<T> *> &nodes, size_t start,
     if (end > nodes.size() - 1 || start > end)
         return nullptr;
 
-    size_t midPoint = (start + end) / 2;
+    size_t midPoint = start + ((end - start) / 2);
     TreeNode<T> *root = nodes[midPoint];
     root->left = buildTree(nodes, start, midPoint - 1);
     root->right = buildTree(nodes, midPoint + 1, end);
